@@ -1,0 +1,8 @@
+scala> var input=sc.textFile("/user/cloudera/tweetCollect.txt")
+scala> var w=input.flatMap(l=>l.split(" ")).map(word=>(word,1)).cache()
+scala> w.reduceByKey(_+_).saveAsTextFile("/user/cloudera/WordCount")
+scala> var w=input.flatMap(l=>l.split(" ")).map(word=>(word,1)).cache()
+scala> var c=w.reduceByKey(_+_).map(item=>item.swap).sortByKey(false,1)
+scala> c.map(item=>item.swap).saveAsTextFile("/user/cloudera/group10/WordFreq")
+scala> var d=c.map(item=>item.swap).take(10)
+
